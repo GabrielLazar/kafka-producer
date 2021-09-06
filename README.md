@@ -18,13 +18,13 @@ To run this project locally, perform the following steps.
 3. Run Spring-boot project
 4. Start zookeeper server: 
         "zookeeper-server-start.bat config\zookeeper.properties"
-6. Start kafka server: 
+5. Start kafka server:
         "kafka-server-start.bat config\server.properties"
-8. Create topic:
+6. Create topic:
         "kafka-topics --bootstrap-server localhost:9092 --topic employees --create --partitions 4 --replication-factor 1"
-10. Trigger endpoint to send data:
+7. Trigger endpoint to send data:
         "http://localhost:8080/employees"
-12. Create consumer to get the data:
+8. Create consumer to get the data:
         "kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic employees --from-beginning"
 
 Created by @Gabriel Lazar Halitchi
