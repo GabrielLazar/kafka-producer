@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -25,6 +27,8 @@ public class EmployeeProducerImplementation implements IEmployeeProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
+    @Retryable(value = RuntimeException.class, maxAttempts = 3,
+            backoff =  @Backoff(delayExpression = "1000", multiplier = 3, maxDelayExpression = "6000"))
     @Override
     public void sendMessage(Employee employee) {
 
